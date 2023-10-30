@@ -1,38 +1,58 @@
-import { View, Text, StyleSheet } from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import React from "react";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { Searchbar } from "react-native-paper";
 import RestaurantInfo from "../components/restaurant-info-card.component";
 import styled from "styled-components/native";
+import Spacer from "../../../components/spacer/spacer.component";
+import { useRestaurantContext } from "../../../services/restuarants/restuarant.context";
+import Search from "../components/search.component";
+import { ActivityIndicator } from "react-native-paper";
+import { colors } from "../../../infrastructure/theme/colors";
+import SafeArea from "../../../components/common/SafeArea";
 
+const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
+`;
 
-const StyledView = styled.View`
-background-color: 'green';
-`
+const LoadingContainer = styled.View`
+  justify-content: "center";
+  flex-grow: 1;
+`;
 
-const RestaurantsScreen = () => {
+const RestaurantsScreen = ({ navigation }) => {
+  const { restaurants } = useRestaurantContext();
+  const { loading } = useRestaurantContext();
+
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <View style={{ padding: 16 }}>
-          <Searchbar elevation={2} placeholder="Search for a restaurant" />
-        </View>
-        <View style={{ flex: 1, padding: 16 }}>
-          <RestaurantInfo />
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <SafeArea>
+      <Search />
+      {loading ? (
+        <LoadingContainer>
+          <Loading size={50} animating={true} color={colors.blue300} />
+        </LoadingContainer>
+      ) : (
+        <>
+          <FlatList
+            data={restaurants}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("details", {
+                    restaurant: item,
+                  })
+                }
+              >
+                <Spacer size="large" position="bottom">
+                  <RestaurantInfo restaurant={item} />
+                </Spacer>
+              </TouchableOpacity>
+            )}
+            keyExtractor={(item) => item.name}
+            contentContainerStyle={{ padding: 16 }}
+          />
+        </>
+      )}
+    </SafeArea>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-  text: {},
-});
 
 export default RestaurantsScreen;

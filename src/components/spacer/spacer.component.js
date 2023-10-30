@@ -20,7 +20,7 @@ const getVariant = (position, size, theme) => {
   const property = positionVariant[position];
   const value = theme.space[sizeIndex];
 
-  retuurn`${properrty}:${value}`;
+  return`${property}:${value}`;
 };
 
 const Spacer = styled.View`
