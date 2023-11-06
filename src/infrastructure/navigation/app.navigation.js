@@ -39,7 +39,13 @@ export default function Navigation() {
         })}
       >
         <Tabs.Screen name="Home" component={RestaurantNavigation} />
-        <Tabs.Screen name="Map" component={MapNavigation} />
+        <Tabs.Screen
+          name="Map"
+          options={{
+            headerShown: false,
+          }}
+          component={MapNavigation}
+        />
         <Tabs.Screen name="Settings" component={SettingsScreen} />
       </Tabs.Navigator>
       <ExpoStatusBar style="auto" />

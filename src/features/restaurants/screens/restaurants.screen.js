@@ -8,6 +8,7 @@ import Search from "../components/search.component";
 import { ActivityIndicator } from "react-native-paper";
 import { colors } from "../../../infrastructure/theme/colors";
 import SafeArea from "../../../components/common/SafeArea";
+import Favorites from "../components/favourites.component";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -25,6 +26,7 @@ const RestaurantsScreen = ({ navigation }) => {
   return (
     <SafeArea>
       <Search />
+      <Favorites />
       {loading ? (
         <LoadingContainer>
           <Loading size={50} animating={true} color={colors.blue300} />

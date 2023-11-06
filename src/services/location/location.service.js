@@ -3,7 +3,8 @@ import { locations } from "./location.mock";
 const transformRequest = (result) => {
   const mappedResult = result.results[0];
   const { lng, lat } = mappedResult.geometry.location;
-  return { lng, lat };
+
+  return { lng, lat, viewPort: mappedResult.geometry.viewport };
 };
 
 export const requestLocation = (searchTerm = "antwerp") => {
