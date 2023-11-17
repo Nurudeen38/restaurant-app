@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 
 const sizeVariant = {
   xs: 0,
@@ -20,11 +20,16 @@ const getVariant = (position, size, theme) => {
   const property = positionVariant[position];
   const value = theme.space[sizeIndex];
 
-  return`${property}:${value}`;
+  return `${property}:${value}`;
 };
 
-const Spacer = styled.View`
-  ${({ position, size, theme }) => getVariant(position, size, theme)}
+const SpacerView = styled.View`
+  ${({ variant }) => variant}
 `;
 
+const Spacer = ({ position = "top", size = "medium" }) => {
+  const theme = useTheme();
+  const variant = getVariant(position, size, theme);
+  return <SpacerView variant={variant} />;
+};
 export default Spacer;

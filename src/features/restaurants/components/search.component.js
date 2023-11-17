@@ -10,6 +10,7 @@ export default function Search() {
 
   useEffect(() => {
     search(keyword);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
