@@ -7,16 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MapNavigation from "./map.navigation";
 import { useAuth } from "../../services/authentication/authentication.context";
 import SafeArea from "../../components/common/SafeArea";
-
-const SettingsScreen = () => {
-  const { onLogout } = useAuth();
-  return (
-    <SafeArea>
-      <Text>Settings</Text>
-      <Button title="logout" onPress={() => onLogout()} />
-    </SafeArea>
-  );
-};
+import SettingsNavigation from "./settings.navigation";
 
 const Tabs = createBottomTabNavigator();
 
@@ -48,7 +39,7 @@ export default function Navigation() {
         }}
         component={MapNavigation}
       />
-      <Tabs.Screen name="Settings" component={SettingsScreen} />
+      <Tabs.Screen name="Settings" component={SettingsNavigation} />
     </Tabs.Navigator>
   );
 }

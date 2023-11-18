@@ -9,8 +9,6 @@ import {
 import { ActivityIndicator, TextInput } from "react-native-paper";
 import Spacer from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
-import { colors } from "../../../infrastructure/theme/colors";
-
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,23 +39,15 @@ export default function Login() {
           onChangeText={setPassword}
         />
 
-        <Spacer>
-          {!!error && <Text variant="error">{error}</Text>}
-          {loading ? (
-            <AuthButton
-              loading={loading}
-              mode="contained"
-              onPress={() => login(email, password)}
-            >
-              Login
-            </AuthButton>
-          ) : (
-            <ActivityIndicator
-              animating={true}
-              color={colors.brand.secondary}
-            />
-          )}
-        </Spacer>
+        {!!error && <Text variant="error">{error}</Text>}
+        <Spacer position="top" size="large"></Spacer>
+        <AuthButton
+          loading={loading}
+          mode="contained"
+          onPress={() => login(email, password)}
+        >
+          Login
+        </AuthButton>
       </AccountContainer>
     </AccountBackground>
   );

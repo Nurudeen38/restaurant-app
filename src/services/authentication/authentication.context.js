@@ -12,14 +12,15 @@ const useAuthContext = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
-  app.auth().onAuthStateChanged((usr) => {
-    if (usr) {
-      setUser(usr);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
-  });
+  // app.auth().onAuthStateChanged((usr) => {
+  //   if (usr) {
+  //     setUser(usr);
+  //     setLoading(false);
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // });
+
   const onLogin = (email, password) => {
     setLoading(true);
     loginRequest(email, password)
