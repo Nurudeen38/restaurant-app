@@ -7,6 +7,7 @@ import { Text } from "../../../components/typography/text.component";
 import { View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const StyledListItem = styled(List.Item)`
   padding: 16px;
@@ -24,17 +25,21 @@ const SettingsScreen = ({ navigation }) => {
     const photoT = await AsyncStorage.getItem(`photo-${currentUser.uid}`);
     setPhoto(photoT);
   };
+
   useFocusEffect(() => {
     getProfilePicture(user);
   }, [user]);
+
   return (
     <SafeArea>
       <AvatarContainer>
-        {photo ? (
-          <Avatar.Image source={{ uri: photo }} size={180} color="#2182BD" />
-        ) : (
-          <Avatar.Icon icon="human" size={180} color="#2182BD" />
-        )}{" "}
+        <TouchableOpacity onPress={() => navigation.navigate("camera")}>
+          {photo ? (
+            <Avatar.Image source={{ uri: photo }} size={180} color="#2182BD" />
+          ) : (
+            <Avatar.Icon icon="human" size={180} color="#2182BD" />
+          )}
+        </TouchableOpacity>
         <Text>{user.user.email}</Text>
       </AvatarContainer>
       <List.Section>
